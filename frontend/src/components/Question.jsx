@@ -1,12 +1,18 @@
 import React from 'react'
 import Option from './Option'
-const Question = () => {
+const Question = ({ number, text, options }) => {
     // console.log(options)
-    // console.log(correctOptions)
+    const labels = ['A', 'B', 'C', 'D']
     return (
         <div>
-            <p>1. Question</p>
-            <Option />
+            <p>{ number }.&nbsp; { text } </p>
+            <div className = 'ps-5'>
+                { options && 
+                    options.map((option, index) => (
+                        <Option key = { index } text = { option } />
+                    ))
+                }
+            </div>
         </div>
     )
 }

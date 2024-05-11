@@ -1,12 +1,10 @@
 import React from 'react'
-const Option = () => {
-    // console.log(options)
+import './Option.css'
+const Option = ({ text }) => {
+    // console.log(option)
     return (
-        <div>
-            <p>Option1</p>
-            <p>Option2</p>
-            <p>Option3</p>
-            <p>Option4</p>
+        <div className = 'd-flex align-items-center background_option py-2 px-2'>
+            <p>{ text }</p>
         </div>
     )
 }
