@@ -6,15 +6,18 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Quizpage from './pages/Quizpage'
+import Home from './pages/Home'
+import Test from './pages/Test'
 const App = () => {
     const browserRoutes = createBrowserRouter([{
         path: '/',
         element: <Layout />,
         children: [
+            { path: '/home', element: <Home /> },
             { path: '/login', element: <Login /> },
             { path: '/signup', element: <Signup /> },
             { path: '/playquiz', element: <Quizpage /> },
-            { path: '/*', element: <Login /> }
+            { path: '/*', element: <Test /> }
         ]
     }])
     return <RouterProvider router = { browserRoutes } />

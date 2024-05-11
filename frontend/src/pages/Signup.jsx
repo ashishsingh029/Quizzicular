@@ -20,12 +20,6 @@ const Signup = () => {
                         </label>
                         <input type = 'text' id = 'email' className = 'form-control' placeholder = 'Enter email' required />
                     </div>
-                    <div className = 'mb-1'>
-                        <label htmlFor = 'mobile' className = 'form-label mb-1'>
-                            Mobile:
-                        </label>
-                        <input type = 'text' id = 'mobile' className = 'form-control' placeholder = 'Enter Mobile' required />
-                    </div>
                     <div className = 'mb-1 mt-2'>
                         <label htmlFor = 'password' className = 'form-label mb-1'>
                             Password:

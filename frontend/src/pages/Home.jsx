@@ -1,9 +1,9 @@
 import React from 'react'
-const OptionLabel = ({}) => {
+const Home = () => {
     return (
         <div>
-        
+            Home Page
         </div>
     )
 }
-export default OptionLabel
+export default Home
