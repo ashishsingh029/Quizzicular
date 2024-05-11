@@ -1,0 +1,34 @@
+.navbar_bg {
+    background-color: #3A28A7;
+}
+.login_button {
+    background-color: #65C15D;
+    padding: 7px 32px;
+    border-radius: 54px;
+    transition: all .2s ease-in-out;
+}
+.login_button:hover {
+    background-color: #6fd866;
+    transform: scale(1.05);
+}
+.signup_button {
+    background: none;
+    border: 1px solid #FFFFFF;
+    padding: 7px 32px;
+    border-radius: 54px;
+    transition: all .2s ease-in-out;
+}
+.signup_button:hover {
+    background-color: #593fe9;
+    transform: scale(1.05);
+}
+.logout_button {
+    background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
+    border-radius: 54px;
+    padding: 7px 32px;
+    transition: all .2s ease-in-out;
+}
+.logout_button:hover {
+    background: linear-gradient(to bottom right, #da3452, #fa8b46);
+    transform: scale(1.05);
+}

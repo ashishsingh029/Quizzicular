@@ -1,0 +1,1 @@
+User -> Login✅, Logout, Signup✅, create quiz, view created quizzes, update created quizzes, delete quiz, participate in quiz, view stats for all given quizzes, view stats for all created quizzes 
