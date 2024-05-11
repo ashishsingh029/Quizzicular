@@ -1,0 +1,13 @@
+**/node_modules
+**/package-lock.json
+
+frontend/logs
+frontend/*.log
+frontend/npm-debug.log*
+
+frontend/.vscode/*
+frontend/!.vscode/extensions.json
+.idea/
+.vscode/
+**/.idea/
+**/.vscode/
