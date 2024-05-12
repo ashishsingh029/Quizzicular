@@ -1,0 +1,29 @@
+.home_page {
+    min-height: 30vh;
+    background: url('../assets/cover-img.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.custom_text {
+    font-size: 150px;
+    font-style: italic;
+    letter-spacing: 35px;
+    text-decoration: underline; 
+    text-decoration-style:dotted;
+}
+.cover_img {
+    min-height: 30vh;
+    background: url('../assets/gradient.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.create_button {
+    background-color: #65C15D;
+    padding: 10px 40px;
+    border-radius: 54px;
+    transition: all .2s ease-in-out;
+}
+.create_button:hover {
+    background-color: #6fd866;
+    transform: scale(1.05);
+}
