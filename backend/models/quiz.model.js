@@ -1,4 +1,18 @@
 const mongoose = require('mongoose')
+const questionSchema = new mongoose.Schema({
+    text : {
+        type: String,
+        required: true,
+    },
+    options : [{
+        type: String,
+        required: true 
+    }],
+    correctOptions : [{
+        type: Number,
+        required: true 
+    }]
+})
 const quizSchema = new mongoose.Schema({
     title : {
         type: String,
@@ -16,10 +30,7 @@ const quizSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    questions : [{
-        type: mongoose.Schema.Types.ObjectId,
-        required: true 
-    }]
+    questions : [questionSchema]
 })
 const quizModel = mongoose.model('Quiz', quizSchema)
 module.exports = quizModel

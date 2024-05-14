@@ -15,11 +15,13 @@ const userSchema = new mongoose.Schema({
     },
     createdQuizzes : [{
         type: mongoose.Schema.Types.ObjectId,
-        required: true 
+        required: true,
+        ref: 'Quiz' 
     }],
     appearedQuizzes : [{
         type: mongoose.Schema.Types.ObjectId,
-        required: true 
+        required: true, 
+        ref: 'Quiz' 
     }]
 })
 const userModel = mongoose.model('User', userSchema)
