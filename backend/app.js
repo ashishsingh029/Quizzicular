@@ -13,7 +13,7 @@ app.use(express.urlencoded({extended: true}))
 app.get('/', (req, res) => {
     res.send('<h1>Quizzicular api</h1>')
 })
-app.use('/user/', authenticateUser, userRouter)
+app.use('/user/', userRouter)
 app.use('/quiz/', authenticateUser, quizRouter)
 dbConnect()
 app.listen(PORT)

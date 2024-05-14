@@ -17,7 +17,7 @@ const loginUser = async (req, res) => {
         // console.log(randomQuizId)
         // user.appearedQuizzes.push(randomQuizId)
         // await user.save()
-        console.log("A value saved to the databse")
+        // console.log("A value saved to the databse")
         let token = jwt.sign(
             { user: { name: user.name, email: user.email }}, process.env.JWT_SECRET, { expiresIn: '20 minutes' }
         )
@@ -42,7 +42,7 @@ const addUser = async (req, res) => {
         user = await userModel.create({
             name, email, password
         })
-        res.status(201).json(user)
+        return res.status(201).json(user)
     } catch (error) {
         console.log("Signup Failed", error)
         return res.status(200).json({"message": "Signup Failed"})

@@ -10,6 +10,7 @@ import Home from './pages/Home'
 import Test from './pages/Test'
 import Createquiz from './pages/Createquiz'
 import PastResults from './pages/PastResults'
+import Participate from './pages/Participate'
 const App = () => {
     const browserRoutes = createBrowserRouter([{
         path: '/',
@@ -21,6 +22,7 @@ const App = () => {
             { path: '/playquiz', element: <Quizpage /> },
             { path: '/createquiz', element: <Createquiz /> },
             { path: '/pastresults', element: <PastResults /> },
+            { path: '/participate', element: <Participate /> },
             { path: '/*', element: <Test /> }
         ]
     }])

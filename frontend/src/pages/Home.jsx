@@ -23,7 +23,7 @@ const Home = () => {
                         Answer thought-provoking questions, unlock hidden treasures of knowledge, and expand your horizons with every click. With user-friendly navigation and interactive features, participating in a quiz has never been more enjoyable. So, dive in, embrace the excitement, and let the quest for wisdom begin!
                     </p>
                     <span className = 'text-center d-block '>
-                        <Link to = '' className = 'btn text-light fs-5 fw-medium create_button'>Participate Quiz </Link>
+                        <Link to = '/participate' className = 'btn text-light fs-5 fw-medium create_button'>Participate Quiz </Link>
                     </span>
                 </div>
             </div>
