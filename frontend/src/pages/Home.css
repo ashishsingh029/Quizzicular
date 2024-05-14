@@ -12,7 +12,6 @@
     text-decoration-style:dotted;
 }
 .cover_img {
-    min-height: 30vh;
     background: url('../assets/gradient.jpeg');
     background-repeat: no-repeat;
     background-size: cover;

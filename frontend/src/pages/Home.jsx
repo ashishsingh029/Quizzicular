@@ -14,7 +14,7 @@ const Home = () => {
                         Here, you have the opportunity to craft a quiz tailored to your specific needs. Whether you're creating an educational assessment, a fun trivia challenge, or a skill-testing exercise. Let your creativity shine as you design the perfect quiz for your project!
                     </p>
                     <span className = 'text-center d-block '>
-                        <Link to = '' className = 'btn text-light fs-5 fw-medium create_button'>Create Quiz </Link>
+                        <Link to = '/createquiz' className = 'btn text-light fs-5 fw-medium create_button'>Create Quiz </Link>
                     </span>
                 </div>
                 <div className = 'col-md-6 p-2'>
