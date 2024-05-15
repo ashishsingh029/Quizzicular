@@ -42,6 +42,7 @@ const Createquiz = () => {
         setQuestions(updatedQuestions)
     }
     const handleCreateQuiz = async event => {
+        console.log(createResponse)
         event.preventDefault()
         console.log(user.email)
         console.log(user.name)
@@ -63,13 +64,14 @@ const Createquiz = () => {
         }
         try {
             let res = await quizApis.createQuiz(quiz)
+            console.log(res)
             setCreateResponse({
+                activated: true,
                 error: false,
                 message: {
                     id: res.data.quizId.toString(),
                     password: res.data.password
-                },
-                activated: true
+                }
             })
             // setQuestions([{ text: '', options: [''], correctOptions: [] }])
             // console.log(res)
@@ -82,22 +84,21 @@ const Createquiz = () => {
             console.log(error)
         }
     }
-
     return (
         <div className = 'row py-3'>
             <form action = '' onSubmit = { handleCreateQuiz }>
                 <div className = 'col-md-9 ms-5 ps-3'>
                     <h3>Create Quiz</h3>
                     <hr />
-                    <div className = ' card col-6 p-3 mb-5'>
-                        {   createResponse.activated && 
+                    <div className = {` card col-6 p-3 mb-5 ${createResponse.activated ? '' : 'd-none'}`}>
+                        {   
                             createResponse.error ? (
                                 <p className = 'text-danger'>Couldn't create Quiz</p>
                             ) : (
                                 <>
                                     <p className = 'fw-medium mb-2'>Quiz Credentials are</p>
                                     <p className = 'text-success mb-1'>
-                                        Quiz Id: { createResponse.message.quizId }
+                                        Quiz Id: { createResponse.message.id }
                                     </p>
                                     <p className = 'text-success mb-1'>
                                         Password: { createResponse.message.password }

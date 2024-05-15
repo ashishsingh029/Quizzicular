@@ -30,7 +30,7 @@ const quizSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    questions : [questionSchema]
+    questions : [ questionSchema ]
 })
 const quizModel = mongoose.model('Quiz', quizSchema)
 module.exports = quizModel
