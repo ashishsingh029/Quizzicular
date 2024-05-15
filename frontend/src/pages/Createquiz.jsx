@@ -1,9 +1,17 @@
 import React, { useState } from 'react'
+import { useAuth } from '../contexts/AuthContext'
+import quizApis from '../apis/QuizApis'
 const Createquiz = () => {
-    const [questions, setQuestions] = useState([{ text: '', options: [''], correctOptions: [] }])
-    const [quizTitle, setQuizTitle] = useState('')
-    const [quizPassword, setQuizPassword] = useState('')
-    const [quizDescription, setQuizDescription] = useState('')
+    const [ questions, setQuestions ] = useState([{ text: '', options: [''], correctOptions: [] }])
+    const [ quizTitle, setQuizTitle] = useState('')
+    const [ quizPassword, setQuizPassword ] = useState('')
+    const [ quizDescription, setQuizDescription ] = useState('')
+    const [ createResponse, setCreateResponse ] = useState({
+        activated: false,
+        error: false,
+        message: ''
+    })
+    const { user } = useAuth()
     const addQuestion = () => {
         setQuestions([...questions, { text: '', options: [''], correctOptions: [] }])
     }
@@ -33,8 +41,10 @@ const Createquiz = () => {
         }
         setQuestions(updatedQuestions)
     }
-    const handleCreateQuiz = event => {
+    const handleCreateQuiz = async event => {
         event.preventDefault()
+        console.log(user.email)
+        console.log(user.name)
         console.log('Quiz Title:', quizTitle)
         console.log('Quiz Password:', quizPassword)
         console.log('Quiz Description:', quizDescription)
@@ -44,15 +54,58 @@ const Createquiz = () => {
         //     console.log('Options:', question.options)
         //     console.log('Correct Options:', question.correctOptions)
         // })
+        const quiz = {
+            title: quizTitle, 
+            description: quizDescription,
+            creatorName: user.name,
+            password: quizPassword,
+            questions
+        }
+        try {
+            let res = await quizApis.createQuiz(quiz)
+            setCreateResponse({
+                error: false,
+                message: {
+                    id: res.data.quizId.toString(),
+                    password: res.data.password
+                },
+                activated: true
+            })
+            // setQuestions([{ text: '', options: [''], correctOptions: [] }])
+            // console.log(res)
+        } catch (error) {
+            setCreateResponse({
+                error: true,
+                message: null,
+                activated: true
+            })
+            console.log(error)
+        }
     }
 
     return (
         <div className = 'row py-3'>
             <form action = '' onSubmit = { handleCreateQuiz }>
-
                 <div className = 'col-md-9 ms-5 ps-3'>
                     <h3>Create Quiz</h3>
                     <hr />
+                    <div className = ' card col-6 p-3 mb-5'>
+                        {   createResponse.activated && 
+                            createResponse.error ? (
+                                <p className = 'text-danger'>Couldn't create Quiz</p>
+                            ) : (
+                                <>
+                                    <p className = 'fw-medium mb-2'>Quiz Credentials are</p>
+                                    <p className = 'text-success mb-1'>
+                                        Quiz Id: { createResponse.message.quizId }
+                                    </p>
+                                    <p className = 'text-success mb-1'>
+                                        Password: { createResponse.message.password }
+                                    </p>
+                                </>
+                            )
+                        }
+                    </div>
                     <input type = 'text' className = 'form-control' placeholder = 'Enter Quiz Title' value = { quizTitle } onChange = { e => setQuizTitle(e.target.value) } required/>
                     <input type='password' className='form-control my-3' placeholder='Enter Quiz Password' value = { quizPassword } onChange={(e) => setQuizPassword(e.target.value) } required/>
                     <textarea type = 'text' className = 'form-control my-3' placeholder = 'Enter Quiz Description' value = { quizDescription } onChange = { e => setQuizDescription(e.target.value) } required> </textarea>

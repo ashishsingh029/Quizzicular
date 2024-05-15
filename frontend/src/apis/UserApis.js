@@ -15,7 +15,7 @@ class UserApis {
     }
     loginUser = async user => {
         try {
-            const res = await axios.post(`${this.api}/user/login`, user)
+            let res = await axios.post(`${this.api}/user/login`, user)
             // console.log(res.data)
             return { status: true, data: res.data }
         } catch (error) {

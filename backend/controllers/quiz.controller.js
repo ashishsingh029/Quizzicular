@@ -11,7 +11,7 @@ const createQuiz = async (req, res) => {
         // console.log(user)
         user.createdQuizzes.push(newQuizIdToBePushed)
         await user.save()
-        return res.status(200).json({"Quiz Id": `${newQuizIdToBePushed}`, "password": `${res1.password}`})
+        return res.status(200).json({"quizId": `${newQuizIdToBePushed}`, "password": `${res1.password}`})
     } catch (error) {
         console.log('Error creating Quiz', error)
         return res.status(500).json({"message": "Can't create Quiz"})

@@ -19,7 +19,7 @@ import { useAuth } from '../contexts/AuthContext'
                             <div className = 'd-flex align-items-center text-light fw-medium'> 
                                 <div className = 'dropdown'>
                                     <button className = 'btn signup_button text-light dropdown-toggle mx-1' type = 'button' data-bs-toggle = 'dropdown' aria-expanded = 'false'>
-                                        {user.name}
+                                        { user && user.name}
                                     </button>
                                     <ul className = 'dropdown-menu'>
                                         <li> <Link className = 'dropdown-item' to = ''> Created Quizzes </Link> </li>
