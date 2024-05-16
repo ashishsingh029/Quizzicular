@@ -23,7 +23,7 @@ import { useAuth } from '../contexts/AuthContext'
                                     </button>
                                     <ul className = 'dropdown-menu'>
                                         <li> <Link className = 'dropdown-item' to = ''> Created Quizzes </Link> </li>
-                                        <li> <Link className = 'dropdown-item' to = ''>Appeared Quizzes </Link> </li>
+                                        <li> <Link className = 'dropdown-item' to = 'pastresults'>Appeared Quizzes </Link> </li>
                                     </ul>
                                 </div>
                                 <Link onClick = { logoutUser } to = '' className = 'btn mx-2 logout_button text-light fw-medium'>Logout</Link> 

@@ -20,3 +20,8 @@
   transition-duration: .1s;
   color: #FFFFFF;
 }
+
+.background_option:hover {
+  background-color: rgb(243, 244, 244);
+  cursor: pointer;
+}

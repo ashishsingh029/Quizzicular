@@ -13,6 +13,26 @@ class QuizApis {
             return { status: false, message: error?.response?.data?.message }
         }
     }
+    participateQuiz = async credentials => {
+        try {
+            let res = await axios.post(`${this.api}/quiz/takequiz`, credentials)
+            // console.log(res)
+            return { status: true, data: res.data }
+        } catch (error) {
+            console.log(error.message)
+            return { status: false, message: error?.response?.data?.message }
+        }
+    }
+    submitQuiz = async data => {
+        try {
+            // console.log(data)
+            let res = await axios.post(`${this.api}/quiz/submitquiz`, data) 
+            return { status: true, data: res.data }
+        } catch (error) {
+            console.log(error.message)
+            return { status: false, message: error?.response?.data?.message }
+        }
+    }
     // registerUser = async user => {
     //     try {
     //         const res = await axios.post(`${this.api}/user/signup`, user)

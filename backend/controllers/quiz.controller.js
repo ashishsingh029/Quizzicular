@@ -29,14 +29,49 @@ const getQuiz = async (req, res) => {
     }
 }
 const takeQuiz = async (req, res) => {
+    let { qid, password} = req.body
     try {
-        
+        let result = await quizModel.findOne({_id: qid})
+        // console.log("Result ", result)
+        if(!result) {
+            return res.status(404).json({"message": "No Quiz found"})
+        }
+        if(result.password != password) {
+            return res.status(400).json({"message": "Invalid Password"})
+        }
+        return res.status(200).json(result)
     } catch (error) {
         console.log(error)
+    }
+}
+const submitQuiz = async (req, res) => {
+    // console.log(req.body)
+    let { qid, selectedOptions } = req.body
+    // console.log(qid)
+    // console.log("Selected Options ", selectedOptions)
+    try {
+        let quiz = await quizModel.findOne({_id: qid})
+        let questions = quiz.questions
+        let correct = 0;
+        let total = questions.length;
+        for(let i=0;i<total;i++) {
+            const arrCorrect = questions[i].correctOptions
+            const arrUser = selectedOptions[i]
+            if(arrUser.sort((a, b) => a - b).toString() === arrCorrect.sort((a, b) => a - b).toString()) {
+                correct++;
+            }
+        }
+        const resp = { "correct": correct, "total": total }
+        console.log(resp)
+        return res.status(200).json({ "correct": correct, "total": total })
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({"message": "Result calculation Failed"})
     }
 }
 module.exports = {
     createQuiz,
     getQuiz,
-    takeQuiz
+    takeQuiz,
+    submitQuiz
 }

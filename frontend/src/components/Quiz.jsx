@@ -1,13 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Question from './Question'
 const Quiz = props => {
     // console.log(props.quiz)
     // console.log(questions)
     const questions = props.quiz.questions
-    const [ selectedOptions, setSelectedOptions ] = useState(Array.from({ length: questions.length }, () => new Set()))
-    const handleSubmit = () => {
-        console.log(selectedOptions)
-    }
     // console.log('Rendere')
     return (
         <div>
@@ -19,12 +15,11 @@ const Quiz = props => {
                     {/* <Question /> */}
                     { questions && 
                         questions.map((question, index) => (
-                            <Question key = { question.id } number = { index + 1 } text = { question.text } options = { question.options } qindex = { index } prevSelectedOptions = { selectedOptions } setSelectedOptions = { setSelectedOptions } />
+                            <Question key = { question.id } number = { index + 1 } text = { question.text } options = { question.options } qindex = { index } />
                         ))
                     }   
                 </div>
             </div>
-            <button onClick = { handleSubmit } className = 'button_submit btn btn-block w-100 my-3 fw-medium'> Submit </button>
         </div>
     )
 }

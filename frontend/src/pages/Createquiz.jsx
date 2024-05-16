@@ -42,7 +42,7 @@ const Createquiz = () => {
         setQuestions(updatedQuestions)
     }
     const handleCreateQuiz = async event => {
-        console.log(createResponse)
+        // console.log(createResponse)
         event.preventDefault()
         console.log(user.email)
         console.log(user.name)
