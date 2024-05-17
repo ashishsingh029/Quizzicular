@@ -12,7 +12,6 @@ export const AuthProvider = props => {
             setToken(jwttoken)
             setIsLoggedIn(true)
             const decodedData = decodeToken(jwttoken)
-            // console.log(decodedData)
             setUser(decodedData.user)
         }
     }, [token])
@@ -24,12 +23,10 @@ export const AuthProvider = props => {
     }
     const logout = () => { 
         console.log('Logout called')
-        // console.log('Token before removing is -> ', localStorage.getItem('pptoken'))
         setToken(null)
         setUser(null)
         setIsLoggedIn(false)
         localStorage.removeItem(getTokenName())
-        // console.log('Token after removing is -> ', localStorage.getItem('pptoken'))
     }
     return(
         <AuthContext.Provider value = {{ token, isLoggedIn, login, logout, user }}>

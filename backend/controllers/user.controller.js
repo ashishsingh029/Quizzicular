@@ -13,15 +13,9 @@ const loginUser = async (req, res) => {
         if(!isValidPassword) {
             return res.status(400).json({"message": "Invalid Password"})
         }
-        // randomQuizId = new mongoose.Types.ObjectId()
-        // console.log(randomQuizId)
-        // user.appearedQuizzes.push(randomQuizId)
-        // await user.save()
-        // console.log("A value saved to the databse")
         let token = jwt.sign(
             { user: { name: user.name, email: user.email }}, process.env.JWT_SECRET, { expiresIn: '20 minutes' }
         )
-        // console.log('Generated token: ', token)
         res.status(200).json({"message": "Login Successfull", token})
     } catch (error) {
         console.log(error)

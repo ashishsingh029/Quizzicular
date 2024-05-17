@@ -55,21 +55,24 @@ const Createquiz = () => {
         //     console.log('Options:', question.options)
         //     console.log('Correct Options:', question.correctOptions)
         // })
-        const quiz = {
-            title: quizTitle, 
-            description: quizDescription,
-            creatorName: user.name,
-            password: quizPassword,
-            questions
+        const data = {
+            quiz: {
+                title: quizTitle, 
+                description: quizDescription,
+                creatorName: user.name,
+                password: quizPassword,
+                questions
+            },
+            email: user.email
         }
         try {
-            let res = await quizApis.createQuiz(quiz)
+            let res = await quizApis.createQuiz(data)
             console.log(res)
             setCreateResponse({
                 activated: true,
                 error: false,
                 message: {
-                    id: res.data.quizId.toString(),
+                    id: res.data.qid,
                     password: res.data.password
                 }
             })

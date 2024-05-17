@@ -1,18 +1,17 @@
 const quizModel = require('../models/quiz.model')
 const userModel = require('../models/user.model')
-const resultModel = require('../models/result.model')
 const createQuiz = async (req, res) => {
-    console.log(req.body)
+    // console.log(req.body)
     // console.log(questions)
-    const email = "test1@email.com"
+    let { quiz, email } = req.body
     try {
-        let res1 = await quizModel.create(req.body)
+        let res1 = await quizModel.create(quiz)
         let newQuizIdToBePushed = res1._id
         let user = await userModel.findOne({ email })
         // console.log(user)
         user.createdQuizzes.push(newQuizIdToBePushed)
         await user.save()
-        return res.status(200).json({"quizId": `${newQuizIdToBePushed}`, "password": `${res1.password}`})
+        return res.status(200).json({ qid: res1._id, password: res1.password })
     } catch (error) {
         console.log('Error creating Quiz', error)
         return res.status(500).json({"message": "Can't create Quiz"})

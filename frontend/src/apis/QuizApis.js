@@ -1,11 +1,13 @@
 import axios from 'axios'
+import { getToken } from '../utils/helpers'
 class QuizApis {
     constructor() {
         this.api = String(import.meta.env.VITE_BACKEND_API)
     }
-    createQuiz = async quiz => {
+    createQuiz = async data => {
+        // console.log(quiz)
         try {
-            let res = await axios.post(`${this.api}/quiz/createquiz`, quiz, {
+            let res = await axios.post(`${this.api}/quiz/createquiz`, data, {
                 headers: {
                     Authorization: `Quizzicular ${getToken()}`
                 }
