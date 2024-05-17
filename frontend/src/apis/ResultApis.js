@@ -16,7 +16,6 @@ class ResultApis {
             console.log(error.message)
             return { status: false, message: error?.response?.data?.message }
         }
-
     }
 }
 const resultApis = new ResultApis()
