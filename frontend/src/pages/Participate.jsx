@@ -4,6 +4,7 @@ import './Signup.css'
 // import Quiz from '../components/Quiz'
 // import Question from '../components/Question'
 import Option from '../components/Option'
+import { useAuth } from '../contexts/AuthContext'
 const Participate = () => {
     const qidRef = useRef(null)
     const passwordRef = useRef(null)
@@ -13,6 +14,7 @@ const Participate = () => {
     const [ questions, setQuestions ] = useState(null)
     const [ selectedOptions, setSelectedOptions ] = useState(null)
     const labels = ['A', 'B', 'C', 'D']
+    const { user } = useAuth()
     const handleParticipate = async event => {
         event.preventDefault()
         const credentials = {
@@ -57,9 +59,11 @@ const Participate = () => {
         const qid = quiz._id
         const data = {
             qid,
-            selectedOptions
+            selectedOptions,
+            email: user.email
         }   
         // console.log(data)
+        // console.log(user)
         let res = await quizApis.submitQuiz(data)
         if(res.status) {
             // marks show

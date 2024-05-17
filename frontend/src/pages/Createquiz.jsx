@@ -44,12 +44,12 @@ const Createquiz = () => {
     const handleCreateQuiz = async event => {
         // console.log(createResponse)
         event.preventDefault()
-        console.log(user.email)
-        console.log(user.name)
-        console.log('Quiz Title:', quizTitle)
-        console.log('Quiz Password:', quizPassword)
-        console.log('Quiz Description:', quizDescription)
-        console.log('Questions ', questions)
+        // console.log(user.email)
+        // console.log(user.name)
+        // console.log('Quiz Title:', quizTitle)
+        // console.log('Quiz Password:', quizPassword)
+        // console.log('Quiz Description:', quizDescription)
+        // console.log('Questions ', questions)
         // questions.forEach((question, index) => {
         //     console.log(`Question ${index + 1}:`, question.text)
         //     console.log('Options:', question.options)

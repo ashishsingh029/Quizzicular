@@ -26,33 +26,23 @@ class QuizApis {
     submitQuiz = async data => {
         try {
             // console.log(data)
-            let res = await axios.post(`${this.api}/quiz/submitquiz`, data) 
-            return { status: true, data: res.data }
+            const submissionData = { qid:data.qid, selectedOptions: data.selectedOptions }
+            let res = await axios.post(`${this.api}/quiz/submitquiz`, submissionData) 
+            await axios.put(`${this.api}/result/addref`, { quizId: data.qid, userEmail: data.email })
+            let result = {
+                quizId: data.qid,
+                userEmail: data.email,
+                correct: res.data.correct,
+                total: res.data.total
+            }
+            console.log(result)
+            let res1 = await axios.post(`${this.api}/result/addresult`, result)
+            return { status: true, data: res1.data }
         } catch (error) {
             console.log(error.message)
             return { status: false, message: error?.response?.data?.message }
         }
     }
-    // registerUser = async user => {
-    //     try {
-    //         const res = await axios.post(`${this.api}/user/signup`, user)
-    //         // console.log('Registering user' + res.data)
-    //         return { status: true, data: res.data }
-    //     } catch (error) {
-    //         console.log(error)
-    //         return { status: false, message: error?.response?.data?.message }
-    //     }
-    // }
-    // loginUser = async user => {
-    //     try {
-    //         const res = await axios.post(`${this.api}/user/login`, user)
-    //         // console.log(res.data)
-    //         return { status: true, data: res.data }
-    //     } catch (error) {
-    //         console.log(error)
-    //         return { status: false, message: error?.response?.data?.message }
-    //     }
-    // }
 }
 const quizApis = new QuizApis()
 export default quizApis

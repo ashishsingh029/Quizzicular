@@ -1,5 +1,6 @@
 const quizModel = require('../models/quiz.model')
 const userModel = require('../models/user.model')
+const resultModel = require('../models/result.model')
 const createQuiz = async (req, res) => {
     console.log(req.body)
     // console.log(questions)
@@ -61,8 +62,9 @@ const submitQuiz = async (req, res) => {
                 correct++;
             }
         }
-        const resp = { "correct": correct, "total": total }
-        console.log(resp)
+        // const resp = { "correct": correct, "total": total }
+        // console.log(resp)
+        
         return res.status(200).json({ "correct": correct, "total": total })
     } catch (error) {
         console.log(error)
