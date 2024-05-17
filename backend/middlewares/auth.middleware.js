@@ -6,11 +6,11 @@ const authenticateUser = (req, res, next) => {
     }
     try {
         let decodedData = jwt.verify(token.split(' ')[1], process.env.JWT_SECRET)
-        console.log('Decoded data: ', decodedData)
+        // console.log('Decoded data: ', decodedData)
         req.user = decodedData.user
-        next()
+        console.log("Authentication Success")
     } catch (error) {
-        res.status(400).json({"message": "Login Invalidated, Try Logging in Again"})
+        return res.status(400).json({"message": "Login Invalidated, Try Logging in Again"})
     }
     next()
 }
