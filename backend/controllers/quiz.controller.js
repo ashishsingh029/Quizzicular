@@ -46,25 +46,36 @@ const takeQuiz = async (req, res) => {
     }
 }
 const submitQuiz = async (req, res) => {
+    // console.log(selectedOptions)
     // console.log(req.body)
-    let { qid, selectedOptions } = req.body
+    let { qid, selectedOptions } = req.body.data
+    let { email } = req.body
+    // console.log("email in submit quiz controller, " , email)
     // console.log(qid)
     // console.log("Selected Options ", selectedOptions)
     try {
+        let user = await userModel.findOne({ email })
+        // console.log(user)
+        user.appearedQuizzes.push(qid)
+        await user.save()
         let quiz = await quizModel.findOne({_id: qid})
         let questions = quiz.questions
+        console.log(selectedOptions)
+        console.log(questions)
         let correct = 0;
         let total = questions.length;
         for(let i=0;i<total;i++) {
             const arrCorrect = questions[i].correctOptions
             const arrUser = selectedOptions[i]
+            // console.log("Correct answers", arrCorrect)
+            // console.log("User answers", arrUser)
             if(arrUser.sort((a, b) => a - b).toString() === arrCorrect.sort((a, b) => a - b).toString()) {
                 correct++;
             }
         }
-        // const resp = { "correct": correct, "total": total }
+        const resp = { "correct": correct, "total": total }
         // console.log(resp)
-        
+        // console.log("Printing result from controller", resp)
         return res.status(200).json({ "correct": correct, "total": total })
     } catch (error) {
         console.log(error)

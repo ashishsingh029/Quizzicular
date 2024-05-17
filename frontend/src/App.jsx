@@ -11,6 +11,7 @@ import Test from './pages/Test'
 import Createquiz from './pages/Createquiz'
 import PastResults from './pages/PastResults'
 import Participate from './pages/Participate'
+import ProtectedRoute from './Layouts/ProtectedRoute'
 const App = () => {
     const browserRoutes = createBrowserRouter([{
         path: '/',
@@ -20,11 +21,19 @@ const App = () => {
             { path: '/home', element: <Home /> },
             { path: '/login', element: <Login /> },
             { path: '/signup', element: <Signup /> },
-            { path: '/playquiz', element: <Quizpage /> },
-            { path: '/createquiz', element: <Createquiz /> },
-            { path: '/pastresults', element: <PastResults /> },
-            { path: '/participate', element: <Participate /> },
-            { path: '/*', element: <Test /> }
+            {
+                path: '/',
+                element: <ProtectedRoute />,
+                children: [
+                    { path: '/playquiz', element: <Quizpage /> },
+                    { path: '/playquiz', element: <Quizpage /> },
+                    { path: '/createquiz', element: <Createquiz /> },
+                    { path: '/pastresults', element: <PastResults /> },
+                    { path: '/pastresults/:email', element: <PastResults /> },
+                    { path: '/participate', element: <Participate /> },
+                    { path: '/*', element: <Test /> }
+                ]
+            }
         ]
     }])
     return <RouterProvider router = { browserRoutes } />

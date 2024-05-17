@@ -13,6 +13,7 @@ const Participate = () => {
     const [ quiz, setQuiz ] = useState(null)
     const [ questions, setQuestions ] = useState(null)
     const [ selectedOptions, setSelectedOptions ] = useState(null)
+    const [ result, setResult ] = useState(null)
     const labels = ['A', 'B', 'C', 'D']
     const { user } = useAuth()
     const handleParticipate = async event => {
@@ -35,7 +36,7 @@ const Participate = () => {
                 // console.log(res)
                 setMessage(res.message)
             }
-            console.log(res)
+            // console.log(res)
         } catch (error) {
             console.log(error)
         }
@@ -56,25 +57,50 @@ const Participate = () => {
     }
     const handleSubmit = async event => {
         event.preventDefault()
+        console.log(selectedOptions)
         const qid = quiz._id
-        const data = {
+        let data = {
             qid,
+            title: quiz.title,
             selectedOptions,
             email: user.email
         }   
         // console.log(data)
         // console.log(user)
         let res = await quizApis.submitQuiz(data)
+        // console.log("Loggin result from quiz Page", res)
         if(res.status) {
             // marks show
+            // console.log(res.data)
+            setResult(res.data)
+            setSelectedOptions(questions.map(() => []))
+            setTimeout(() => {
+                setResult(null)
+            }, 10000)
         } else {
             // no need
+            setResult(null)
         }
+        data = {
+            ...data, 
+            ...res.data
+        }
+        console.log("Last data", data)
+        await quizApis.addResult(data)
+        // await quizApis.addRefInAppered(data)
     }
     return (
         <div className = 'row py-3'>
             { quiz ? (
                     <div className = 'col-md-9 ms-5 ps-3'>
+                        <div className = {`card my-3 col-6 mx-auto ${result ? '' : 'd-none'}`}>
+                            <h5 className = 'card-header fs-4'>  Marks Obtained </h5>
+                            <div className = 'card-body align-items center'>
+                                <p className = 'my-1'> Correct: <span className = 'text-success fw-bold'>{ result && result.correct } </span></p>
+                                <p className = 'my-1'> Incorrect: <span className = 'text-danger fw-bold'>{ result && ( result.total - result.correct ) } </span></p>
+                                <p className = 'my-1'> Marks Obtained: <span className = 'text-info-emphasis fw-bold'>{ result && ((result.correct / result.total) * 100).toFixed(2) }% </span></p>
+                            </div>
+                        </div>
                         <div className = 'card'>
                             <h5 className = 'card-header fs-4'> { quiz.title } 
                                 <p className = 'card-text fs-6 fw-normal my-2 blockquote-footer'> { quiz.description }</p>
@@ -88,7 +114,7 @@ const Participate = () => {
                                                 { question.options && 
                                                     question.options.map((option, optionIndex) => (
                                                         <div key = { `${questionIndex}-${optionIndex}` } className = {`ps-3 d-flex align-items-center ${selectedOptions[questionIndex].includes(optionIndex) ? 'bg-success-subtle' : ''} background_option`} onClick = { () => handleOptionClick(questionIndex, optionIndex) } >
-                                                            <input className = 'form-check-input' type = 'checkbox' checked = { selectedOptions[questionIndex].includes(optionIndex) } />
+                                                            <input className = 'form-check-input d-none' type = 'checkbox' checked = { selectedOptions[questionIndex].includes(optionIndex) } />
                                                             <Option key = { `${questionIndex}-${optionIndex}` } text = { option } label = { labels[optionIndex] } index = { optionIndex } />
                                                         </div>
                                                     ))

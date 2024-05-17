@@ -1,9 +1,11 @@
 const express = require('express')
 const {
     addResult,
-    addRefInUsers
+    addRefInUsers,
+    getAppearedQuizzes
 } = require('../controllers/result.controller')
 const resultRouter = express.Router()
 resultRouter.post('/addresult', addResult)
-resultRouter.put('/addref', addRefInUsers)
+resultRouter.post('/addref', addRefInUsers)
+resultRouter.get('/getappeared/:email', getAppearedQuizzes)
 module.exports = resultRouter

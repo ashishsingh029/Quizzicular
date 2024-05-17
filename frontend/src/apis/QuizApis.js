@@ -5,7 +5,11 @@ class QuizApis {
     }
     createQuiz = async quiz => {
         try {
-            let res = await axios.post(`${this.api}/quiz/createquiz`, quiz)
+            let res = await axios.post(`${this.api}/quiz/createquiz`, quiz, {
+                headers: {
+                    Authorization: `Quizzicular ${getToken()}`
+                }
+            })
             console.log(res)
             return { status: true, data: res.data }
         } catch (error) {
@@ -15,7 +19,11 @@ class QuizApis {
     }
     participateQuiz = async credentials => {
         try {
-            let res = await axios.post(`${this.api}/quiz/takequiz`, credentials)
+            let res = await axios.post(`${this.api}/quiz/takequiz`, credentials, {
+                headers: {
+                    Authorization: `Quizzicular ${getToken()}`
+                }
+            })
             // console.log(res)
             return { status: true, data: res.data }
         } catch (error) {
@@ -25,23 +33,38 @@ class QuizApis {
     }
     submitQuiz = async data => {
         try {
-            // console.log(data)
-            const submissionData = { qid:data.qid, selectedOptions: data.selectedOptions }
-            let res = await axios.post(`${this.api}/quiz/submitquiz`, submissionData) 
-            await axios.put(`${this.api}/result/addref`, { quizId: data.qid, userEmail: data.email })
-            let result = {
-                quizId: data.qid,
-                userEmail: data.email,
-                correct: res.data.correct,
-                total: res.data.total
+            // console.log("Submitting quiz with data:", data)
+            const submissionData = { 
+                data: {
+                    qid: data.qid, selectedOptions: data.selectedOptions
+                },
+                email: data.email
             }
-            console.log(result)
-            let res1 = await axios.post(`${this.api}/result/addresult`, result)
-            return { status: true, data: res1.data }
+            let res = await axios.post(`${this.api}/quiz/submitquiz`, submissionData, {
+                headers: {
+                    Authorization: `Quizzicular ${getToken()}`
+                }
+            })             
+            return { status: true, data: res.data }
         } catch (error) {
-            console.log(error.message)
+            console.log("Error in submitQuiz:", error)
             return { status: false, message: error?.response?.data?.message }
         }
+    }
+    addResult = async data => {
+        let result = {
+            quizId: data.qid,
+            userEmail: data.email,
+            correct: data.correct,
+            total: data.total,
+            title: data.title
+        }
+        let resultResponse = await axios.post(`${this.api}/result/addresult`, result, {
+            headers: {
+                Authorization: `Quizzicular ${getToken()}`
+            }
+        })
+        console.log("Result added successfully:", resultResponse)
     }
 }
 const quizApis = new QuizApis()

@@ -4,6 +4,10 @@ const resultSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: true,
     },
+    title : {
+        type: String,
+        required: true 
+    },
     userEmail : {
         type: String,
         required: true 
